@@ -29,5 +29,5 @@ tag:
 publish:
 	@if [ -z "$$VERSION" ]; then echo "Error: VERSION environment variable is not set"; exit 1; fi
 	git tag -a "v$(VERSION)" -m "Release v$(VERSION)"
-	git push
+	git push origin "v$(VERSION)"
 .PHONY: publish
