@@ -42,7 +42,7 @@ const (
 //──────────────────────────────────────────────────────────────────────────────────────────────────
 
 func New(cfg cfg_entities.ProviderSMS) SmsProvider {
-	slog.Info("connect to sms provider")
+	slog.Info("connecting to SMS provider")
 
 	provider := newKavenegar(cfg.Kavenegar)
 	return provider

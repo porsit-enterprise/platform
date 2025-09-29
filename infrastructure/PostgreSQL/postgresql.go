@@ -47,11 +47,11 @@ func Connect(config cfg_entities.PostgreSQL, schema string) (*pgxpool.Pool, erro
 	return connection, nil
 }
 
-func Close(connection *pgxpool.Pool) error {
-	slog.Info("closing PostgreSQL connection")
+func Close(connection *pgxpool.Pool) {
+	slog.Debug("closing PostgreSQL connection")
+
 	if connection == nil {
-		return nil
+		return
 	}
 	connection.Close()
-	return nil
 }

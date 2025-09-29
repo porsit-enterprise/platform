@@ -21,7 +21,7 @@ func TestConnect(t *testing.T) {
 
 	db, err := Connect(config.Infrastructure.PostgreSQL, "")
 	defer func() {
-		_ = Close(db)
+		Close(db)
 	}()
 
 	assert.NoError(t, err)

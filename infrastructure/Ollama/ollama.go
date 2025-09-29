@@ -40,7 +40,7 @@ func Connect(config cfg_entities.Ollama) (*ollama_api.Client, error) {
 }
 
 func Health(client *ollama_api.Client) error {
-	slog.Info("check Ollama health")
+	slog.Debug("check Ollama health")
 	if client == nil {
 		return nil
 	}

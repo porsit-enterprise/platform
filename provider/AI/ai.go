@@ -29,7 +29,7 @@ const _RETRY_POLICY = `{
 //──────────────────────────────────────────────────────────────────────────────────────────────────
 
 func Dial(config cfg_entities.ProviderAI) (*grpc.ClientConn, error) {
-	slog.Info("connecting to AI server")
+	slog.Info("connecting to AI provider")
 
 	connection, err := grpc.NewClient(
 		config.Connection,
@@ -37,21 +37,21 @@ func Dial(config cfg_entities.ProviderAI) (*grpc.ClientConn, error) {
 		grpc.WithDefaultServiceConfig(_RETRY_POLICY),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("unable to create AI server connection: %w", err)
+		return nil, fmt.Errorf("unable to create AI provider connection: %w", err)
 	}
 
 	return connection, nil
 }
 
 func Close(connection *grpc.ClientConn) error {
-	slog.Info("closing AI connection")
+	slog.Debug("closing AI connection")
 
 	if connection == nil {
 		return nil
 	}
 	err := connection.Close()
 	if err != nil {
-		return fmt.Errorf("unable to close AI server connection: %w", err)
+		return fmt.Errorf("unable to close AI provider connection: %w", err)
 	}
 	return nil
 }

@@ -38,9 +38,11 @@ func New(cfg cfg_entities.Valkey, name string) (valkey.Client, error) {
 }
 
 func Close(client valkey.Client) {
-	slog.Info("closing Valkey connection")
+	slog.Debug("closing Valkey connection")
+
 	if client == nil {
 		return
 	}
+
 	client.Close()
 }
