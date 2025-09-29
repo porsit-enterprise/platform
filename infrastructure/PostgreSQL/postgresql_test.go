@@ -25,5 +25,5 @@ func TestConnect(t *testing.T) {
 	}()
 
 	assert.NoError(t, err)
-	assert.Equal(t, "*pgx.Conn", reflect.TypeOf(db).String())
+	assert.Equal(t, "*pgxpool.Pool", reflect.TypeOf(db).String())
 }

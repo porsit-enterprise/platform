@@ -1,4 +1,4 @@
-version: 1
+version: 1  # Set at "definitions.go"
 
 # [ INFRASTRUCTURE ]
 # --------------------------------------------------------------------------------------------------
@@ -34,3 +34,9 @@ provider:
   ai:
     connection: ""
     request-timeout: 0  # Seconds
+
+  # SMS server
+  sms:
+    kavenegar:
+      apikey: ""
+      otp-template: ""

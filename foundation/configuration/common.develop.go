@@ -3,5 +3,6 @@
 package configuration
 
 const (
-	CONFIG_FILE string = "config.platform.develop.yaml"
+	CONFIG_FILE      string = "config.develop.yaml"
+	CONFIG_FILE_TEST string = "config.test.yaml"
 )

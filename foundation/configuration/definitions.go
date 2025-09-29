@@ -1,12 +1,6 @@
-package foundation
-
-import (
-	"github.com/porsit-enterprise/platform/foundation/configuration"
-)
+package configuration
 
 //──────────────────────────────────────────────────────────────────────────────────────────────────
 
-type Foundation struct {
-	Configuration configuration.Properties
-	Settings      any
-}
+// Version set at "config.platform.*.yaml"
+const VERSION string = "1"

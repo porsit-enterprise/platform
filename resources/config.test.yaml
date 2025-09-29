@@ -1,0 +1,42 @@
+version: 1
+
+# [ INFRASTRUCTURE ]
+# --------------------------------------------------------------------------------------------------
+
+infrastructure:
+
+  # PostgreSQL
+  postgresql:
+    connection: "host=localhost dbname=porsit user=postgres password=postgres connect_timeout=10 sslmode=disable"
+    connection-timeout: 3
+
+  # Valkey
+  valkey:
+    connection: "127.0.0.1:6379"
+    username: ""
+    password: ""
+    connection-timeout: 3
+
+  # Ollama
+  ollama:
+    connection: ""
+    connection-timeout: 3
+    operation-timeout: 3
+
+
+
+# [ PROVIDER ]
+# --------------------------------------------------------------------------------------------------
+
+provider:
+
+  # AI server
+  ai:
+    connection: "185.204.169.182:51051"
+    request-timeout: 5
+
+  # SMS server
+  sms:
+    kavenegar:
+      apikey: "6D354C744356584B42444936466D5056486353576F575859326B6B4F6F627A6E4A6442684944543746696B3D"
+      otp-template: "PorsitOTP"

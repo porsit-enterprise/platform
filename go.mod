@@ -4,6 +4,7 @@ go 1.25
 
 require (
 	github.com/jackc/pgx/v5 v5.7.6
+	github.com/kavenegar/kavenegar-go v0.0.0-20240205151018-77039f51467d
 	github.com/ollama/ollama v0.12.3
 	github.com/pgvector/pgvector-go v0.3.0
 	github.com/stretchr/testify v1.11.1

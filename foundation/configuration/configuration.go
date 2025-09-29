@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/fs"
 	"log/slog"
 	"os"
 	"path/filepath"
@@ -13,6 +12,7 @@ import (
 	"gopkg.in/yaml.v3"
 
 	core "github.com/porsit-enterprise/platform/core"
+	pkg_file "github.com/porsit-enterprise/platform/pkg/file"
 )
 
 //──────────────────────────────────────────────────────────────────────────────────────────────────
@@ -22,13 +22,19 @@ func Load(basePath string) (Properties, error) {
 
 	// Load file
 
-	configPath := filepath.Join(basePath, core.RESOURCES_DIRECTORY, CONFIG_FILE)
+	cfile := CONFIG_FILE
+
+	if os.Getenv(core.ENVIRONMENT) == core.ENVIRONMENT_TEST {
+		cfile = CONFIG_FILE_TEST
+	}
+
+	configPath := filepath.Join(basePath, core.RESOURCES_DIRECTORY, cfile)
 
 	slog.Info("load configuration", slog.String("path", configPath))
 
-	fileBase, err := open(configPath)
-	if fileBase != nil {
-		defer fileBase.Close()
+	file, err := pkg_file.Open(configPath)
+	if file != nil {
+		defer file.Close()
 	}
 	if err != nil && !errors.Is(err, io.EOF) {
 		return Properties{}, err
@@ -38,39 +44,18 @@ func Load(basePath string) (Properties, error) {
 
 	prop := new(Properties)
 
-	decoder := yaml.NewDecoder(fileBase)
+	decoder := yaml.NewDecoder(file)
 	if err := decoder.Decode(prop); err != nil {
-		return Properties{}, fmt.Errorf("error in decoding config base file: %w", err)
+		return Properties{}, fmt.Errorf("error in decoding config file: %w", err)
+	}
+
+	// Validate config
+
+	if prop.Version != VERSION {
+		return Properties{}, fmt.Errorf("invalid config version: %s, expected: %s", prop.Version, VERSION)
 	}
 
 	slog.Debug("configuration", slog.Any("properties", *prop))
 
 	return *prop, nil
-}
-
-//──────────────────────────────────────────────────────────────────────────────────────────────────
-
-func open(configPath string) (*os.File, error) {
-	if _, err := os.Stat(configPath); err != nil {
-		if errors.Is(err, fs.ErrNotExist) {
-			return nil, fs.ErrNotExist
-		}
-		return nil, fmt.Errorf("error in accessing config file: %w", err)
-	}
-
-	file, err := os.Open(filepath.Clean(configPath))
-	if err != nil {
-		return nil, fmt.Errorf("error in opening config file: %w", err)
-	}
-
-	fileStat, err := file.Stat()
-	if err != nil {
-		return nil, fmt.Errorf("error in config file: %w", err)
-	}
-
-	if fileStat.Size() == 0 {
-		return nil, io.EOF
-	}
-
-	return file, nil
 }
