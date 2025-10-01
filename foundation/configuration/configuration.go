@@ -25,7 +25,7 @@ func Load(basePath string) (Properties, error) {
 	cfile := CONFIG_FILE
 
 	if os.Getenv(core.ENVIRONMENT) == core.ENVIRONMENT_TEST {
-		cfile = CONFIG_FILE_TEST
+		cfile = _CONFIG_FILE_TEST
 	}
 
 	configPath := filepath.Join(basePath, core.RESOURCES_DIRECTORY, cfile)
@@ -34,7 +34,12 @@ func Load(basePath string) (Properties, error) {
 
 	file, err := pkg_file.Open(configPath)
 	if file != nil {
-		defer file.Close()
+		defer func() {
+			err := file.Close()
+			if err != nil {
+				slog.Warn("error in closing config file", slog.Any("error", err))
+			}
+		}()
 	}
 	if err != nil && !errors.Is(err, io.EOF) {
 		return Properties{}, err

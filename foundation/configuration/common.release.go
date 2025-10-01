@@ -3,6 +3,6 @@
 package configuration
 
 const (
-	CONFIG_FILE      string = "config.release.yaml"
-	CONFIG_FILE_TEST string = "config.test.yaml"
+	CONFIG_FILE       string = "config.release.yaml"
+	_CONFIG_FILE_TEST string = "config.test.yaml"
 )

@@ -40,19 +40,24 @@ func TestLoadEmptyFile(t *testing.T) {
 		t.Errorf("error in creating temp directory: %v", err)
 		return
 	}
-	defer os.RemoveAll(filepath.Join(os.TempDir(), core.RESOURCES_DIRECTORY))
+	defer func() {
+		err := os.RemoveAll(filepath.Join(os.TempDir(), core.RESOURCES_DIRECTORY))
+		if err != nil {
+			t.Errorf("error in removing temp directory: %v", err)
+		}
+	}()
 	fileBase, err := os.Create(filepath.Join(os.TempDir(), core.RESOURCES_DIRECTORY, CONFIG_FILE))
 	if err != nil {
 		t.Errorf("error in creating temp config global file: %v", err)
 		return
 	}
-	fileBase.Close()
+	_ = fileBase.Close()
 	file, err := os.Create(filepath.Join(os.TempDir(), core.RESOURCES_DIRECTORY, CONFIG_FILE))
 	if err != nil {
 		t.Errorf("error in creating temp config file: %v", err)
 		return
 	}
-	file.Close()
+	_ = file.Close()
 	_, err = Load(os.TempDir())
 	assert.Error(t, err)
 }

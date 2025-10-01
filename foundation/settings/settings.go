@@ -28,7 +28,12 @@ func Load(basePath string, properties any) error {
 
 	file, err := pkg_file.Open(settingsPath)
 	if file != nil {
-		defer file.Close()
+		defer func() {
+			err := file.Close()
+			if err != nil {
+				slog.Warn("error in closing config file", slog.Any("error", err))
+			}
+		}()
 	}
 	if err != nil && !errors.Is(err, io.EOF) {
 		return err
