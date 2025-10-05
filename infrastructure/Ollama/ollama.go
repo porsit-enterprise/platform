@@ -21,7 +21,7 @@ func Connect(config cfg_entities.Ollama) (*ollama_api.Client, error) {
 	slog.Info("connecting to Ollama")
 
 	defaultClient := &http.Client{}
-	defaultClient.Timeout = time.Duration(config.ConnectionTimeout)
+	defaultClient.Timeout = time.Duration(config.ConnectionTimeout) * time.Second
 
 	var mainUrl *url.URL
 

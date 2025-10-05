@@ -25,7 +25,7 @@ func SetupHealthCheckClient(com *grpc.ClientConn) {
 }
 
 func CheckHealth(config cfg_entities.ProviderAI) (bool, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(config.RequestTimeout))
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.RequestTimeout)*time.Second)
 	defer cancel()
 
 	response, err := healthclient.Check(ctx, &healthpb.HealthCheckRequest{})
