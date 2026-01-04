@@ -1,0 +1,55 @@
+version: 1
+
+# [ INFRASTRUCTURE ]
+# --------------------------------------------------------------------------------------------------
+
+infrastructure:
+
+  # PostgreSQL
+  postgresql:
+    connection: ""
+    connection-timeout: 3
+    connection-retries: 3
+    connection-retry-delay: 1
+
+  # Valkey
+  valkey:
+    connection: ""
+    username: ""
+    password: ""
+    connection-timeout: 3
+    connection-retries: 3
+    connection-retry-delay: 1
+
+  # Ollama
+  ollama:
+    connection: ""
+    connection-timeout: 3
+    operation-timeout: 10
+    connection-retries: 3
+    connection-retry-delay: 1
+
+  # Centrifugo
+  centrifugo:
+    connection-grpc: ""
+    connection-http: ""
+    connection-timeout: 3
+    api-key: ""
+
+
+
+# [ PROVIDER ]
+# --------------------------------------------------------------------------------------------------
+
+provider:
+
+  # AI server
+  ai:
+    connection: ""
+    request-timeout: 5
+
+  # SMS server
+  sms:
+    kavenegar:
+      apikey: ""
+      otp-template: ""
