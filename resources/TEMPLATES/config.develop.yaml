@@ -1,0 +1,55 @@
+version: 1  # Set at "definitions.go"
+
+# [ INFRASTRUCTURE ]
+# --------------------------------------------------------------------------------------------------
+
+infrastructure:
+
+  # PostgreSQL
+  postgresql:
+    connection: ""
+    connection-timeout: 0  # Seconds
+    connection-retries: 0
+    connection-retry-delay: 0  # Seconds
+
+  # Valkey
+  valkey:
+    connection: ""
+    username: ""
+    password: ""
+    connection-timeout: 0  # Seconds
+    connection-retries: 0
+    connection-retry-delay: 0  # Seconds
+
+  # Ollama
+  ollama:
+    connection: ""  # leave empty to load default
+    connection-timeout: 0  # Seconds
+    operation-timeout: 0  # Seconds
+    connection-retries: 0
+    connection-retry-delay: 0  # Seconds
+
+  # Centrifugo
+  centrifugo:
+    connection-grpc: ""
+    connection-http: ""
+    connection-timeout: 0  # Seconds
+    api-key: ""
+
+
+
+# [ PROVIDER ]
+# --------------------------------------------------------------------------------------------------
+
+provider:
+
+  # AI server
+  ai:
+    connection: ""
+    request-timeout: 0  # Seconds
+
+  # SMS server
+  sms:
+    kavenegar:
+      apikey: ""
+      otp-template: ""
